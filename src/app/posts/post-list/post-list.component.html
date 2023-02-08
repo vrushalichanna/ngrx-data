@@ -1,0 +1,34 @@
+<!-- *ngIf="posts.length > 0 && !isLoading" -->
+<div class="container" >
+  <mat-card
+  *ngFor="let post of posts ; let i = index "
+    [ngClass]="{ expanded: expanded[i] }"
+    [class.mat-elevation-z8]="expanded[i]"
+  >
+    <div class="header toggle">
+      <mat-card-header class="itemName">
+       <h4> {{ post.title }} </h4>
+      </mat-card-header>
+      <div class="toggle">
+        <button mat-icon-button>
+           <span class="material-icons" *ngIf="!expanded[i]" (click)="expanded[i] = !expanded[i]">expand_more</span>
+          <span class="material-icons" *ngIf="expanded[i]" (click)="expanded[i] = !expanded[i]"> expand_less </span>
+        </button>
+      </div>
+    </div>
+    <div class="body" *ngIf="expanded[i]">
+      <mat-card-content>
+        <!-- <div >
+          <img class="image" [src]="post.imagePath" [alt]="post.title">
+        </div> -->
+        <p class="info-text space-margin" matListItemLine>{{ post.content }}</p>
+      </mat-card-content>
+        <div>
+          <span class="button-section">
+          <a mat-button color="primary" [routerLink]="['/edit', post.id]">EDIT</a>
+          <button mat-button color="warn" (click)="onDelete(post.id)">DELETE</button>
+        </span>
+      </div>
+    </div>
+  </mat-card>
+</div>
